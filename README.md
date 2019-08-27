@@ -292,13 +292,13 @@ What can you say about the distribution of fire sizes?
 How might forests in the real world arrive at these different states?
 
 ### Critical forest-fire dynamics
-In this section, we will output the ongoing dynamics and analyse them to quantitatively verify the visual intutition above.
+In this section, we will output the ongoing dynamics and analyse them to quantitatively verify the visual intuition above.
 
 First lets extend the number of generations to 2000 to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`).
 
 Process the results using the `fireArea` function, which outputs the number of trees burned within each cluster of fire, as `treeBurn`.
 
-For each of the parameter regimes studied above (`PL = 0.05`, `PL = 1`, PL = 50`), plot the resulting distribution of cluster sizes (in units of trees) on log-log axes.
+For each of the parameter regimes studied above (`PL = 0.05`, `PL = 1`, `PL = 50`), plot the resulting distribution of cluster sizes (in units of trees) on log-log axes.
 As with crackling noise, use logarithmically-spaced bins (setting an suitable number of bins, and filtering out empty bins as appropriate).
 
 The self-organized criticality theory of the forest-fire model (as well as empirical results) have shown that forest fires have a critical exponent of -1.
