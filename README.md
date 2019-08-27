@@ -18,12 +18,18 @@ Hold up some paper to your ear (preferably not your lecture notes) and slowly mo
 
 While paper might appear to be a boring system, we will see that it actually resembles the same types of microscopic random spatial processes we've been studying in lectures, that give rise to characteristic scale-free statistics at the macroscopic scale.
 
+Some examples of physics papers on this topic:
+* Acoustic emission from crumpling paper.
+_Phys. Rev. E_ (1996).
+[Link](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278).
+
+
 #### Why does paper crackle?
 Paper is a thin sheet which bends more easily than it stretches and naturally (and in response to stress) possesses a shape with zero Gaussian curvature almost everywhere.
 However, when paper is crumpled (experiences extreme stress), it forms permanent creases.
 Crackles are produced from areas of paper buckling under the applied stress.
-You can imagine a microscopic model of paper in which the fibers that make up the sheet of paper vary in strength.
-When you apply stress to the paper, it will preferentially form creases along contiguous stretches of the weaker fibers.
+You can imagine a microscopic model of paper in which the fibres that make up the sheet of paper vary in strength.
+When you apply stress to the paper, it will preferentially form creases along contiguous stretches of the weaker fibres.
 We've seen plenty of spatial models in lectures where these types of random microscopic processes yield scale-free macroscopic statistics.
 
 Unfold a crumpled piece of paper, and you will find the creases exhibit wildly varying lengths.
@@ -206,3 +212,71 @@ An example of this could be using two cups of similar size and taping the articl
 
 Using your device repeat the analysis and compare your results with simply crumpling by hand.
 Does the device yield a wider distribution of events?
+
+
+## Part 2: Self-organising forests :evergreen_tree::fire::evergreen_tree::fire::evergreen_tree::fire::evergreen_tree:
+
+Despite the complexities in how forest fires propagate (different trees, landscapes, and temperature), forest-fires are actually scale-invariant.
+That is, burn areas exhibit power-law statistics (there are many small fires and few large fires).
+
+
+### A simple forest-fire model
+In lectures, we learned that the theory of self-organised criticality can explain the ubiquity of scale-invariance in natural systems.
+One of the creators of this concept, Per Bak, developed a forest-fire model defined on a 2-dimensional spatial grid.
+
+Initially, each site is randomly assigned to be a tree, a burning tree or empty.
+The system is then updated (in parallel) according to the following rules:
+1. _death_: A burning tree becomes an empty site in the next time-step;
+2. _regrowth_: An empty site grows a tree with probability `p`, and
+3. _burning_: A tree becomes a burning tree in the next time-step if at least one of its neighbours is burning.
+4. _lighting strike_: A tree becomes a burning tree during a time step with probability `f` if no neighbour is burning (this rule was required for the system to become truly critical).
+
+In this lab, we will build the simple forest fire model, and demonstrate it is self-organised and critical, exhibiting self-similar behavior.
+
+In the interests of time, we have implemented the four rules in `forestFireModel`.
+Have a look through and make sure you understand how the rules have been implemented.
+
+:fire::fire::fire: If you are up the challenge and want to understand the mechanics of the model, go through the instructions in `ImplementingForestFire.md`.
+
+### Critical conditions on parameters
+
+Within this model, an important criterion is that the lightning strikes at a rate `f`<<`p`, in this case, even though we parallel update, the burning of a cluster can be thought of as instantaneous, as long as `p` -> 0.
+Thus, the critical conditions are that `f`<<`p`<<1, and this can be physically interpreted as a separation of timescales, as the time in which a forest cluster burns down is much shorter than the time in which a tree grows, which again is much shorter than the time between two lightning occurrences.
+Consider the timescales these phenomena occur within nature.
+Do you believe that this is a valid model for explaining the self-similarity of forest fires in nature?
+Discuss in your group.
+
+### Critical conditions on parameters
+
+We can constrain the critical behavior due to the separation of timescales by a new parameter f/p = 1/&#952;.
+&#952; gives the average number of trees planted between lightning strikes meaning large clusters can form and we expect critical behavior when &#952;>>1.
+
+The second condition for criticality is that &#952; < 1/p, the time between clusters burning and new trees growing this condition prevents trees from growing near ongoing fires.
+
+These conditions together imply at criticality f>p^2.
+In the original 1992 paper, Drossel and Schwabl selected &#952; = 70 in a grid-size of 250 x 250.
+Thankfully, computers are faster now and we can comfortably model &#952; = 150 on a 500 x 500 grid in a minute.
+
+Now we will be using the `ForestFireModel` code provided (or written, for those of you who are on :fire:).
+
+```matlab
+ForestFireModel(Tmax, plotFlag, outputFlag, PG, PL):
+```
+Inputs:
+* `Tmax`: the number of generations to be simulated
+* `plotFlag`: whether to plot the forest fire model (green = trees, white = empty ground, red = fire),
+* `outputFlag`: whether to output a 3d matrix (space, space, time).
+* `PG`: a multiplier of the growth rate `p`
+* `PL`: a multiplier of the lightning rate `f`.
+
+
+
+### REFERENCES
+
+* Bak, Chen, and Tang, [A forest-fire model and some thoughts on turbulence](https://www.sciencedirect.com/science/article/pii/037596019090451S), _Physics Letters A_, **147**, 297-300 (1990).
+* Drossel, B. and Schwabl, F. (1992),
+[Self-organized critical forest-fire model](https://doi.org/10.1103/PhysRevLett.69.1629).
+_Phys. Rev. Lett._ __69__, 1629–1632.
+* Grassberger, P. (2002),
+[Critical behaviour of the Drossel-Schwabl forest fire model](http://iopscience.iop.org/article/10.1088/1367-2630/4/1/317/meta).
+_New J. Phys._ __4__, 17.
