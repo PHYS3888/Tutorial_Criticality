@@ -219,9 +219,14 @@ Does the device yield a wider distribution of events?
 Despite the complexities in how forest fires propagate (different trees, landscapes, and temperature), forest-fires are actually scale-invariant.
 That is, burn areas exhibit power-law statistics (there are many small fires and few large fires).
 
+![](img/forestFireAmazon.png)
 
 ### A simple forest-fire model
 In lectures, we learned that the theory of self-organised criticality can explain the ubiquity of scale-invariance in natural systems.
+We played with a [simple, interactive forest-fire model](https://www.complexity-explorables.org/explorables/critically-inflammatory/) that we're now going to implement ourselves and do some quantitative numerics on.
+
+![](img/explorableForestFire.png)
+
 One of the creators of this concept, Per Bak, developed a forest-fire model defined on a 2-dimensional spatial grid.
 
 Initially, each site is randomly assigned to be a tree, a burning tree or empty.
@@ -260,15 +265,65 @@ Thankfully, computers are faster now and we can comfortably model &#952; = 150 o
 Now we will be using the `ForestFireModel` code provided (or written, for those of you who are on :fire:).
 
 ```matlab
-ForestFireModel(Tmax, plotFlag, outputFlag, PG, PL):
+ForestFireModel(Tmax, PG, PL, plotFlag, outputFlag):
 ```
 Inputs:
 * `Tmax`: the number of generations to be simulated
+* `PG`: a multiplier of the default growth rate `p = 1/200`
+* `PL`: a multiplier of the default lightning rate `f = p/150`.
 * `plotFlag`: whether to plot the forest fire model (green = trees, white = empty ground, red = fire),
 * `outputFlag`: whether to output a 3d matrix (space, space, time).
-* `PG`: a multiplier of the growth rate `p`
-* `PL`: a multiplier of the lightning rate `f`.
 
+### Simulating forest-fire dynamics
+
+Let’s visualise the dynamics within the model at the critical point (`PG = 1`, `PL = 1`).
+Set your model to run for 1000 generations, with the plot flag on.
+At the critical point, we would expect to see a scale-free distribution of fire sizes.
+Do the dynamics look as if we're at the critical point?
+
+Decrease the critical ratio by dropping the lightning probability:  `PL = 0.05`.
+How do the dynamics look now?
+What can you say about the distribution of fire sizes?
+
+Next, increase the critical ratio by increasing the lightning probability: `PL = 50`.
+How do the dynamics look now?
+What can you say about the distribution of fire sizes?
+
+How might forests in the real world arrive at these different states?
+
+### Critical forest-fire dynamics
+In this section, we will output the ongoing dynamics and analyse them to quantitatively verify the visual intutition above.
+
+First lets extend the number of generations to 2000 to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`).
+
+Process the results using the `fireArea` function, which outputs the number of trees burned within each cluster of fire, as `treeBurn`.
+
+For each of the parameter regimes studied above (`PL = 0.05`, `PL = 1`, PL = 50`), plot the resulting distribution of cluster sizes (in units of trees) on log-log axes.
+As with crackling noise, use logarithmically-spaced bins (setting an suitable number of bins, and filtering out empty bins as appropriate).
+
+The self-organized criticality theory of the forest-fire model (as well as empirical results) have shown that forest fires have a critical exponent of -1.
+
+:question::question::question: Upload your code to estimate the critical exponent, and state the result.
+Does your simulated estimate agree with theoretical and experimental predictions?
+_Hint:_ You may wish to restrict the scale over which you perform your linear fit (some large outliers may have insufficient statistics due to the short simulation time).
+
+### Fluctuating green
+There is actually a secret sixth input to `ForestFireModel`.
+Set it to true, and note the density of green trees as a function of time for the three cases studied above.
+(_Hint:_ You may need 4000 generations to see the dynamics settle in the critical case `PL = 1`).
+
+Now let's try scaling both `f` and `p`.
+You should first scale both only slightly, in the range 0.5 - 2.
+What happens as you scale `f` from 0.5 to 2?
+What happens as you scale `p` from 0.5 to 2?
+
+### The Yellowstone Effect
+
+Until 1972, Yellowstone National Park had a policy of suppressing many of its fires, resulting in a significant accumulation of dead trees, undergrowth, and ancient trees.
+This accumulation is analogous to a small lightning frequency in the forest-fire model.
+The grid becomes full, and the likelihood of large fires is much higher than that in forest-fire models with larger sparking frequencies.
+In 1988, a series of fires in Yellowstone burned 800,000 acres.
+These large fires likely would have been prevented or reduced if, before 1972, there was no policy of fire suppression (increasing the sparking frequency in Yellowstone).
 
 
 ### REFERENCES
