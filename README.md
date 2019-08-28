@@ -9,9 +9,13 @@ ___Pops___ are lots of similarly sized discrete events, like popcorn popping as 
 ___Snaps___ are single significant events, like a snapped pencil.
 Between these two limits, ___crackles___ are discrete events of a variety of sizes.
 
+![](img/snapcracklepop.png)
+
 Many systems crackle, like the earth responding with intermittent and variable earthquakes from the movement of the tectonic plates, magnetic domains aligning due to an applied magnetic field and the sound of fire crackling.
 
-![](img/snapcracklepop.png)
+Physicists have studied the audio profile of crinkling of materials, which actually display some surprising and physically interesting properties, as described in this [New York Times article](https://www.nytimes.com/2000/06/01/us/no-hope-of-silencing-the-phantom-crinklers-of-the-opera.html) about the physics of disturbing others by unwrapping snacks in the theatre (you should recognize the reference to Universality in this passage):
+
+> "The physics of wrappers turned out to be surprisingly complex, said Dr. Kramer, who found parallels in the different shapes that large protein molecules can assume in the human body and the properties of magnetic materials."
 
 The crackling material we are investigating today is a material you would be very familiar with: paper.
 Hold up some paper to your ear (preferably not your lecture notes) and slowly move it and you will hear audible crackles due to the crumpling.
@@ -22,7 +26,6 @@ Some examples of physics papers on this topic:
 * Acoustic emission from crumpling paper.
 _Phys. Rev. E_ (1996).
 [Link](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278).
-
 
 #### Why does paper crackle?
 Paper is a thin sheet which bends more easily than it stretches and naturally (and in response to stress) possesses a shape with zero Gaussian curvature almost everywhere.
