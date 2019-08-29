@@ -16,7 +16,6 @@ if nargin < 2
     error('Sampling rate, please');
 end
 
-
 % Find all peaks
 pks = findpeaks(abs(y));
 
