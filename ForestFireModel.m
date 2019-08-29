@@ -11,14 +11,12 @@ function data = ForestFireModel(T,PG,PL,plotFF,analyzeFF,watchMore)
 %       that is unoccupied.
 %   5) 'PL' - Scales the probability that a forest with no burning
 %       neighbors will ignite ('Lightning' rule; Drossel and Schwabl 1992)
-%
-%-Forest density approaches a constant of ~0.39 when probLight -> 0.
+%   5) 'watchMore' - Flag to watch ratio of densities evolve through time
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %OUPUTS:
-%Output is the 3D array 'TS' which shows the matrix for each time
-%step so code can be debugged, statistics can be calculated. TS=(X,Y,T) is the
-%X,Y computational domain for each time step T.
+%Output is the 3D array 'data' which shows the matrix for each time
+%step so code can be debugged, statistics can be calculated.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -49,7 +47,7 @@ close all
 % Parameters to adjust
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Size of grid
-Dimensions = 500; %Bak et al. 1990 used 256
+Dimensions = 300; %Bak et al. 1990 used 256
 
 % Probability a tree will grow from bare ground
 probGrow = 1/200;
@@ -59,7 +57,7 @@ probGrow = probGrow*PG;
 %PARAMETER SET BY INPUT
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %Probabiliy that a lightning strike will ignite a tree
-probLight = probGrow/150; %probLight=0.00001*0.05; %probLight=0.00001;
+probLight = probGrow/170; 
 probLight = probLight*PL;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,7 +170,7 @@ for t=1:T
         colormap([1,1,1;0,1,0;1,0,0])
         h = colorbar;
         caxis([0 2])
-        title(sprintf('t = %u, probGrow= %f, probLight= %f',t,probGrow,probLight))
+        title(sprintf('t = %u, probGrow= %.2f, probLight= %.2f',t,PG,PL))
         set(h,'YLim',[0 2],'YTick',0.5:0.5:1.5,'YTickLabel',{'empty','trees','fire'})
         axis('square')
         drawnow('limitrate')
