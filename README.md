@@ -9,16 +9,16 @@ ___Pops___ are lots of similarly sized discrete events, like popcorn popping as 
 ___Snaps___ are single significant events, like a snapped pencil.
 Between these two limits, ___crackles___ are discrete events of a variety of sizes.
 
-![](img/snapcracklepop.png)
+Many systems crackle, like the Earth responding with intermittent and variable earthquakes from the movement of the tectonic plates, magnetic domains aligning due to an applied magnetic field and the sound of fire crackling.
 
-Many systems crackle, like the earth responding with intermittent and variable earthquakes from the movement of the tectonic plates, magnetic domains aligning due to an applied magnetic field and the sound of fire crackling.
+![](img/snapcracklepop.png)
 
 Physicists have studied the audio profile of crinkling of materials, which actually display some surprising and physically interesting properties, as described in this [New York Times article](https://www.nytimes.com/2000/06/01/us/no-hope-of-silencing-the-phantom-crinklers-of-the-opera.html) about the physics of disturbing others by unwrapping snacks in the theatre (you should recognize the reference to Universality in this passage):
 
 > "The physics of wrappers turned out to be surprisingly complex, said Dr. Kramer, who found parallels in the different shapes that large protein molecules can assume in the human body and the properties of magnetic materials."
 
 The crackling material we are investigating today is a material you would be very familiar with: paper.
-Hold up some paper to your ear (preferably not your lecture notes) and slowly move it and you will hear audible crackles due to the crumpling.
+Hold some paper to your ear (preferably not your lecture notes) and slowly move it and you will hear audible crackles due to the crumpling.
 
 While paper might appear to be a boring system, we will see that it actually resembles the same types of microscopic random spatial processes we've been studying in lectures, that give rise to characteristic scale-free statistics at the macroscopic scale.
 
@@ -29,15 +29,15 @@ _Phys. Rev. E_ (1996).
 
 #### Why does paper crackle?
 Paper is a thin sheet which bends more easily than it stretches and naturally (and in response to stress) possesses a shape with zero Gaussian curvature almost everywhere.
-However, when paper is crumpled (experiences extreme stress), it forms permanent creases.
-Crackles are produced from areas of paper buckling under the applied stress.
+However, when a paper is crumpled (experiences extreme stress), it forms permanent creases.
+Crackles are produced from areas of paper buckling under applied stress.
 You can imagine a microscopic model of paper in which the fibres that make up the sheet of paper vary in strength.
 When you apply stress to the paper, it will preferentially form creases along contiguous stretches of the weaker fibres.
 We've seen plenty of spatial models in lectures where these types of random microscopic processes yield scale-free macroscopic statistics.
 
-Unfold a crumpled piece of paper, and you will find the creases exhibit wildly varying lengths.
+Unfold a crumpled piece of paper, you will find the creases exhibit wildly varying lengths.
 Like the sizes of the crumples, the crackles (discrete events) span many orders of magnitude in size.
-In this tutorial, we may find that they form a scale-free powerlaw.
+In this tutorial, we may find that they form a scale-free power-law.
 
 ![](img/paper_scaleFree.png)
 
@@ -73,7 +73,7 @@ Discuss with your group what distribution of event sizes you expect.
 
 To adequately piece together a scale-free distribution of events, we need many samples of different events.
 Through experimenting, we have found that you will need around 40s of paper crumpling to get adequate statistics.
-To ensure the microphone can detect each individual crackle, try to crumple your paper slowly to minimize overlapping events.
+To ensure the microphone can detect each individual crackle, try to crumple your paper slowly to minimise overlapping events.
 
 The energy of a crackle is proportional to its amplitude squared.
 The `energyCalc` function performs two steps:
@@ -104,13 +104,13 @@ Plot the distribution determined by the counts, `N` on a log-log plot.
 
 1. You may wish to plot as a function of `binCenters`, the mean of the edges of each bin.
 2. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
-3. You may wish to normalize the counts to probabilities: `Nnorm = N/sum(N)`.
+3. You may wish to normalise the counts to probabilities: `Nnorm = N/sum(N)`.
 4. You may wish to filter out some bad bins before plotting by constructing a logical index of bins to retain.
 We are only interested in plotting bins containing at least one event (`keepBins = (N > 0)`).
 The first bin is often contaminated by noise, and can be removed as `keepBins(1) = false`.
 
 :question::question::question:
-Does your histogram provide evidence for scale-free powerlaw statistics of paper crumpling events?
+Does your histogram provide evidence for scale-free power-law statistics of paper crumpling events?
 Upload your best result as a `.png`, noting any details of the paper, crumpling strategy, and recording length in the figure title (or as text annotations on the figure).
 
 ### Universality
@@ -132,11 +132,11 @@ Look at one of your crumpled pieces of paper.
 Are all of the creases a similar length scale, or do you see a wide range of length scales?
 How do you think these are related to loud scale-invariant cracks?
 
-If the amplitude of crackles is proportional to the crease length of buckled paper, how would you expect your amplitude plot to change with time?
+If the amplitude of crackles is proportional to the crease length of the buckled paper, how would you expect your amplitude plot to change with time?
 Do you see this in your time plot?
 
-Another way to test this idea, is to impose a characteristic length scale, by pre-creasing our paper and trying to force crackles to result from these creases only.
-Here is an example using triangular creases in the paper of a fixed size, imposing a desired length scale of creases along which cracks will occur:
+Another way to test this idea is to impose a characteristic length scale, by pre-creasing our paper and trying to force crackles to result from these creases only.
+Here is an example using triangular creases in the paper of a fixed size, imposing the desired length scale of creases along which cracks will occur:
 
 ![](img/preCreased.png)
 
@@ -146,7 +146,7 @@ How do you explain the difference in crackles heard?
 Do your results support your hypothesis?
 
 :question::question::question:
-Comment on the changes in log-log distribution of event energies from your pre-creased paper and upload your plot.
+Comment on the changes in the log-log distribution of event energies from your pre-creased paper and upload your plot.
 
 :fire::fire::fire: (optional challenge)
 Repeat this analysis for a different imposed length scale (e.g., smaller triangles).
@@ -154,9 +154,9 @@ Plotting your result on top of the larger-triangle case, assess whether you find
 
 #### :question::question::question: Is paper sitting at a critical point?
 
-In lectures we learned about self-organised criticality.
+In lectures, we learned about self-organised criticality.
 Can you explain how the paper arrives at the critical point?
-How does paper crackling resemble a self-organized critical system?
+How does paper crackling resemble a self-organised critical system?
 
 ### Snap, crackle, and/or pop!
 Now that you are knowledgeable about crackling noise, we can answer the question as old as father time himself: _do rice bubbles, snap, crackle, or pop?_
@@ -187,14 +187,14 @@ Listening to it, can you discern a crackle?
 ![](img/earthquake.gif)
 ![](img/earthquakeDistribution.png)
 
-Calculate the histogram of earthquake magnitudes
-(_Note_: you will have to modify `energyCalc`)
+:question::question::question:
+Calculate the histogram of earthquake magnitudes and reproduce the two figures shown above. Upload your figures.
 
 You should find a power-law as earthquakes come in a wide range of sizes, from unnoticeable trembles to catastrophic events as the smaller earthquakes are much more common.
-This relationship is called the Gutenberg–Richter law, which states the earthquake magnitude scales with the logarithm of the magnitude of the earthquake (with exponent ~-1).
+This relationship is called the Gutenberg–Richter law, which states the earthquake magnitude scales with the logarithm of the magnitude of the earthquake.
 
 :question::question::question:
-What is the exponent of your powerlaw?
+What is the exponent of your power-law? Upload your code and results.
 
 ### Universality
 
@@ -239,94 +239,77 @@ The system is then updated (in parallel) according to the following rules:
 3. _burning_: A tree becomes a burning tree in the next time-step if at least one of its neighbours is burning.
 4. _lighting strike_: A tree becomes a burning tree during a time step with probability `f` if no neighbour is burning (this rule was required for the system to become truly critical).
 
-In this lab, we will build the simple forest fire model, and demonstrate it is self-organised and critical, exhibiting self-similar behavior.
+In this lab, we will examine the simple forest fire model, and demonstrate it is self-organised and critical, exhibiting self-similar behavior.
 
-In the interests of time, we have implemented the four rules in `forestFireModel`.
-Have a look through and make sure you understand how the rules have been implemented.
+:fire::fire::fire: If you are up for the challenge and want to understand the mechanics of the model, go through the instructions in `ImplementingForestFire.md` and modify `forestFireModelEmpty` to build your own forest-fire model.
 
-:fire::fire::fire: If you are up the challenge and want to understand the mechanics of the model, go through the instructions in `ImplementingForestFire.md`.
+:snowflake::snowflake::snowflake: If you are running short on time, we have implemented the four rules in `forestFireModel`.
+Have a look through it and make sure you understand how the rules have been implemented.
 
-### Critical conditions on parameters
 
-Within this model, an important criterion is that the lightning strikes at a rate `f`<<`p`, in this case, even though we parallel update, the burning of a cluster can be thought of as instantaneous, as long as `p` -> 0.
-Thus, the critical conditions are that `f`<<`p`<<1, and this can be physically interpreted as a separation of timescales, as the time in which a forest cluster burns down is much shorter than the time in which a tree grows, which again is much shorter than the time between two lightning occurrences.
-Consider the timescales these phenomena occur within nature.
-Do you believe that this is a valid model for explaining the self-similarity of forest fires in nature?
-Discuss in your group.
 
 ### Critical conditions on parameters
 
-We can constrain the critical behavior due to the separation of timescales by a new parameter f/p = 1/&#952;.
-&#952; gives the average number of trees planted between lightning strikes meaning large clusters can form and we expect critical behavior when &#952;>>1.
+Within this model, an important criterion is that the lightning strikes at a rate `f`<<`p`, in this case, even though we parallel update, the burning of a cluster can be thought of as instantaneous, as long as `p` -> 0 (As `p` is the probability of a tree growing a small `p` ensures new trees do not grow at fire fronts).
 
-The second condition for criticality is that &#952; < 1/p, the time between clusters burning and new trees growing this condition prevents trees from growing near ongoing fires.
+Thus, the critical conditions are that `f`<<`p`<<1, and this can be physically interpreted as a separation of timescales, as the time in which a forest cluster burns down is much shorter than the time in which a tree grows, which again is much shorter than the time between two lightning strikes.
 
-These conditions together imply at criticality f>p^2.
-In the original 1992 paper, Drossel and Schwabl selected &#952; = 70 in a grid-size of 250 x 250.
-Thankfully, computers are faster now and we can comfortably model &#952; = 150 on a 500 x 500 grid in a minute.
 
-Now we will be using the `ForestFireModel` code provided (or written, for those of you who are on :fire:).
+Considering the timescales that these phenomena occur within nature, discuss within your group whether you believe that this is a valid condition for simulating natural forest fires?
+
+### Simulating forest-fire dynamics
+In the original 1992 paper, Drossel and Schwabl simulated a grid-size of 250 x 250 over many hours, thankfully, computers are faster now and we can comfortably model on a 300 x 300 grid and in a regime much closer to criticality (smaller `p`) in a few minutes.
+
+
+Now we will be using the `ForestFireModel` code provided (or written, for those of you who are on :fire::fire::fire:).
 
 ```matlab
 ForestFireModel(Tmax, PG, PL, plotFlag, outputFlag):
 ```
 Inputs:
-* `Tmax`: the number of generations to be simulated
-* `PG`: a multiplier of the default growth rate `p = 1/200`
-* `PL`: a multiplier of the default lightning rate `f = p/150`.
+* `Tmax`: the number of generations to be simulated.
+* `PG`: a multiplier of the critical growth rate.
+* `PL`: a multiplier of the critical lightning rate.
 * `plotFlag`: whether to plot the forest fire model (green = trees, white = empty ground, red = fire),
 * `outputFlag`: whether to output a 3d matrix (space, space, time).
 
-### Simulating forest-fire dynamics
+### 
 
 Let’s visualise the dynamics within the model at the critical point (`PG = 1`, `PL = 1`).
 Set your model to run for 1000 generations, with the plot flag on.
 At the critical point, we would expect to see a scale-free distribution of fire sizes.
-Do the dynamics look as if we're at the critical point?
 
-Decrease the critical ratio by dropping the lightning probability:  `PL = 0.05`.
-How do the dynamics look now?
-What can you say about the distribution of fire sizes?
+Now examine the model when it is shifted from the critical point by decreasing the lightning probability:  `PL = 0.05` and increasing the lightning probability: `PL = 50`.
 
-Next, increase the critical ratio by increasing the lightning probability: `PL = 50`.
-How do the dynamics look now?
-What can you say about the distribution of fire sizes?
+Discuss in your group the dynamics at these three regimes.
 
-How might forests in the real world arrive at these different states?
+:question::question::question:
+Remember, in the crackling noise experiment, the creases occur along the weakest fibres, which are scale-free. Discuss how the topographical structure of the forests (clusters of trees) at the critical point differ from `PL = 0.05` and `PL = 50`, are they homogenous, heterogeneous, or something in between (_Hint:_ Do we see any qualitative evidence of scale-invariance?).
 
-### Critical forest-fire dynamics
-In this section, we will output the ongoing dynamics and analyse them to quantitatively verify the visual intuition above.
+### Demonstrating criticality
+In this section, we will output the ongoing dynamics and analyse them to demonstrate that the model reaches a critical point quantitatively. Remember from crackling noise at a critical point, we observe scale-invariant dynamics. 
 
-First lets extend the number of generations to 2000 to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`).
+First, let's extend the number of generations to 5000 (or more if time permitting) to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`). Second, let's process the results using the `fireArea` function, which outputs the number of trees burned within each cluster of fire, as `treeBurn`.
 
-Process the results using the `fireArea` function, which outputs the number of trees burned within each cluster of fire, as `treeBurn`.
+:question::question::question: 
+For each of the parameter regimes studied above (`PL = 0.05`, `PL = 1`, `PL = 50`), plot the resulting distribution of cluster sizes (in units of trees) on the same log-log axes. As with crackling noise, use logarithmically-spaced bins (setting a suitable number of bins, and filtering out empty bins as appropriate). Upload your code and graph (ensuring axes and the different regime histograms are labelled) and describe why the histograms differ when the lightning probability is below and above the critical point.
 
-For each of the parameter regimes studied above (`PL = 0.05`, `PL = 1`, `PL = 50`), plot the resulting distribution of cluster sizes (in units of trees) on log-log axes.
-As with crackling noise, use logarithmically-spaced bins (setting an suitable number of bins, and filtering out empty bins as appropriate).
+:question::question::question:
+The histogram of natural forest fire sizes has an exponent of -1, estimate the histogram exponent of the forest-fire model at the critical point. Upload your code to estimate the critical exponent, and state the result.
 
-The self-organized criticality theory of the forest-fire model (as well as empirical results) have shown that forest fires have a critical exponent of -1.
+Comment on whether your simulated estimate agrees with experimental predictions?
+_Hint:_ You may wish to restrict the scale over which you perform your linear fit as some large outliers may have insufficient statistics due to the short simulation time.
 
-:question::question::question: Upload your code to estimate the critical exponent, and state the result.
-Does your simulated estimate agree with theoretical and experimental predictions?
-_Hint:_ You may wish to restrict the scale over which you perform your linear fit (some large outliers may have insufficient statistics due to the short simulation time).
 
-### Fluctuating green
-There is actually a secret sixth input to `ForestFireModel`.
-Set it to true, and note the density of green trees as a function of time for the three cases studied above.
-(_Hint:_ You may need 4000 generations to see the dynamics settle in the critical case `PL = 1`).
+### Learning from the model
 
-Now let's try scaling both `f` and `p`.
-You should first scale both only slightly, in the range 0.5 - 2.
-What happens as you scale `f` from 0.5 to 2?
-What happens as you scale `p` from 0.5 to 2?
+Now that you are a world-leading expert on the dynamics of forest-fires, the Blue Mountains City Council has approached you and wants to know how to minimise large-scale fires. Your colleague from UNSW suggests the council should place more local fire-fighters during the bush-fire season to ensure more small fires are quickly extinguished.
 
-### The Yellowstone Effect
+:question::question::question: 
+Is this the best advice? By extinguishing spot fires which regime does this resemble in the model. What would your advice be? (_Hint:_ Research the Yellowstone effect)
 
-Until 1972, Yellowstone National Park had a policy of suppressing many of its fires, resulting in a significant accumulation of dead trees, undergrowth, and ancient trees.
-This accumulation is analogous to a small lightning frequency in the forest-fire model.
-The grid becomes full, and the likelihood of large fires is much higher than that in forest-fire models with larger sparking frequencies.
-In 1988, a series of fires in Yellowstone burned 800,000 acres.
-These large fires likely would have been prevented or reduced if, before 1972, there was no policy of fire suppression (increasing the sparking frequency in Yellowstone).
+:fire::fire::fire:
+The council are impressed with your work and have asked you to expand your model to incorporate fire-fighters and random-arsonists. Discuss and implement these two new features into the model.
 
 
 ### REFERENCES
