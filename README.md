@@ -95,7 +95,8 @@ binEdges = logspace(log10(min(E)),log10(max(E)),numBins);
 [N,binEdges] = histcounts(E,binEdges);
 ```
 
-Plot the distribution determined by the counts, `N`, on a log-log plot, giving thought to the following considerations:
+Plot the distribution determined by the counts, `N`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `o-k`).
+Give thought to the following considerations:
 
 1. You may wish to plot as a function of `binCenters`, the mean of the edges of each bin.
 2. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
@@ -184,7 +185,6 @@ Can you discern a 'crackle' (indicative of a scale-free distribution) from liste
 (_Hint_: You can slow down the audio playback, e.g., by setting `fs = 2205`).
 
 ![](img/earthquake.gif)
-![](img/earthquakeDistribution.png)
 
 Calculate the distribution of earthquake magnitudes.
 
@@ -309,7 +309,7 @@ Your colleague from UNSW suggests that the council should recruit more local fir
 Should the council listen to the advice coming from UNSW?
 What parameter regime in the model resembles extinguishing spot fires?
 What would your advice be?
-(_Hint:_ The Yellowstone Effect. Think about it.)
+(_Hint:_ Research 'The Yellowstone Effect'.)
 
 :fire::fire::fire: (Optional):
 The council are impressed with your work and have asked you to expand your model to incorporate fire-fighters and random-arsonists. Implement these two new features into the model, and discuss the effect they have on forest-fire statistics.
