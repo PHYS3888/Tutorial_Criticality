@@ -176,8 +176,7 @@ Listen to the audio:
 ```matlab
 dataFile = fullfile('data','crackleSimilarSize.mat');
 load(dataFile,'yset','fs')
-realFs = 1/fs;
-sound(yset,realFs);
+sound(yset,fs);
 ```
 
 Does this sound like a snap, crackle, or pop?
