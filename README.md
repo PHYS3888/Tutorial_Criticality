@@ -45,6 +45,8 @@ In this tutorial, we will (hopefully!) find that they form a scale-free distribu
 
 ![](img/paper_scaleFree.png)
 
+---
+
 ### _PREWORK_: Measure crumpling events as audio
 
 Directly measuring the size of lots of individual creases is difficult, but luckily they leave an auditory signature.
@@ -118,10 +120,10 @@ E = energyCalc(audioData,fs);
 ```
 
 We're ready to compute the distribution of event energies, `E`!
-Use your favorite function to do this (e.g., `histogram` or `tabulate`).
-What do you notice?
+Use `histogram` to achieve this.
+What do you notice about this distribution?
 
-Now plot the same histogram on logarithmic horizontal and vertical axes.
+Now let's plot the same histogram on logarithmic horizontal and vertical axes.
 When plotting on log-log axes, it is good practice to use logarithmically spaced bins, which can be achieved as:
 ```matlab
 numBins = 25;
@@ -129,17 +131,20 @@ binEdges = logspace(log10(min(E)),log10(max(E)),numBins);
 [N,binEdges] = histcounts(E,binEdges);
 ```
 
+We would like to represent each bin as its middle value, which we can do by taking the mean of each pair of consecutive bin edges.
+This code does the trick:
+
+```matlab
+binCenters = mean([binEdges(1:end-1);binEdges(2:end)]);
+```
+
 Plot the distribution determined by the counts, `N`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `o-k`).
 
 Give thought to the following:
 
-1. You may wish to plot as a function of `binCenters`, the mean of the edges of each bin.
-2. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
-3. You may wish to normalise the counts to probabilities: `Nnorm = N/sum(N)`.
-4. You may wish to filter out some bad bins before plotting by constructing a logical index of bins to retain, `keepBins`.
-For example, we are only interested in plotting bins containing at least one event (`keepBins = (N > 0)`).
-The first bin is often contaminated by noise, and can be removed as `keepBins(1) = false`.
-5. You may wish to filter out small events due to background noise, but setting a threshold on the minimum event energy to include in your analysis (e.g., as the `std` of your data).
+1. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
+2. You may wish to normalise the counts to probabilities: `Nnorm = N/sum(N)`.
+3. You may wish to filter out small events due to background noise, but setting a threshold on the minimum event energy to include in your analysis.
 You can do this by setting the `'minEnergy'` input to `energyCalc` to an appropriately (small) value.
 
 Do you find evidence for a scale-free distribution of event energies from your `myCrumplingData`?
@@ -159,6 +164,10 @@ We saw in lectures that the power-law exponent can be estimated as a linear fit 
 
 :question::question::question:
 What is the power-law exponent of the event energy distribution recorded in `crackle100s`?
+For example, you should:
+1. Transform your binned data to logarithmic space using `log10`.
+2. Remove any bins containing missing data.
+3. Perform a linear fit on your binned data, `xData` and `yData`, using `polyfit` (e.g., `a = polyfit(xData,yData,1)`).
 
 <!-- Upload your best example of the event-energy distribution on a logarithmic scale, noting any details of the paper, crumpling strategy, and recording length in the figure title (or as text annotations on the figure). -->
 
@@ -169,79 +178,23 @@ Here is an example using triangular creases in the paper of a fixed size, imposi
 
 ![](img/preCreased.png)
 
-If you have access to a microphone, you can try this experiment now, making sure to crumple slowly such that the cracks are due to these areas buckling.
+If you have access to a microphone, you can try this experiment yourself, making sure to crumple slowly such that the cracks are due to these areas buckling.
 
 If not, our results are in `'crackleSimilarSize.mat'`.
-Listen to the audio:
+Have a listen to an initial segment of audio:
 ```matlab
 dataFile = fullfile('data','crackleSimilarSize.mat');
-load(dataFile,'yset','fs')
-sound(yset,fs);
+load(dataFile,'audioData','fs')
+sound(audioData(1:5e4),fs);
 ```
 
 Does this sound like a snap, crackle, or pop?
 How do you explain the difference in crackles heard from these data compared to the original data?
 
-Plot the distribution of event energies on log-log axes, as above.
+Plot the distribution of event energies on log-log axes, as above (setting a minimum event size of `0.01`).
 
 :question::question::question:
 What distribution best fits the events in `crackleSimilarSize.mat`?
-
----
-
-#### :fire::fire::fire: (_Optional_): Another length scale
-Repeat the pre-creased experiment for a different imposed length scale (e.g., smaller triangles).
-Plot your result on top of the larger-triangle case, and assess whether you find a distribution of crackling energies consistent with the smaller imposed crease size.
-
-#### :fire::fire::fire: (_Optional_): The Ultimate Crumpler  :page_with_curl: :wrench:
-
-While I am sure you are carefully crumpling the paper as evenly as possible and likely did not notice a significant difference between different crumplers, hand crumpling is imprecise, irreproducible and introduces a length scale of the system proportional to the size of the crumpler's hand.
-
-Let’s try to create an apparatus that can reproducibly crumple paper between trials.
-An example of this could be using two cups of similar size and taping the article to the lids; the crumpling would then be generated by slowly rotating the cups in opposite directions, applying a uniform shear force to the paper.
-
-Using your device repeat the analysis and compare your results with simply crumpling by hand.
-Does the device yield a wider distribution of events?
-
-#### :fire::fire::fire: (_Optional_): Universality
-Recall the concept of universality from lectures, where diverse systems display similar emergent macroscopic behavior.
-
-Discuss within your group what you expect to change about the event-energy distribution after making each of the following modifications to the experimental details of the crumpling experiment above:
-
-1. __Recording duration__. Does a longer or shorter recording duration change the distribution of event energies.
-2. __Paper type__. Repeat the experiment with a different type of paper (thickness, material, ...)
-3. __Hand size/shape, crumpling technique__. Repeat with a different person or crumpling strategy.
-
-Pick a modification from the three categories above, and repeat the experiment making this modification.
-Use `hold('on')` to plot both the original experiment and your modification on the same plot.
-How did the experimental change affect your results?
-
----
-
-### Tectonic Rubbing
-The Earth responds with violent and intermittent earthquakes as two tectonic plates rub past one another.
-The energy radiated by all earthquakes in 1995 is contained in the file `earthquakes.wav`.
-Can you discern a 'crackle' (indicative of a scale-free distribution) from listening to the file?
-(_Hint_: You can slow down the audio playback, e.g., by setting `fs = 2205`).
-
-![](img/earthquake.gif)
-
-Calculate the distribution of earthquake magnitudes.
-
-You should find a power-law, as earthquakes come in a wide range of sizes, from common unnoticeable trembles to rare catastrophic events.
-This relationship is called the Gutenberg–Richter law, which states that the earthquake magnitude scales with the logarithm of the magnitude of the earthquake.
-
-:question::question::question:
-What is the power-law exponent of the distribution of earthquake magnitudes?
-
-<!-- and reproduce the two figures shown above. Upload your figures. -->
-
-### Universality
-Recall the concept of universality from lectures.
-
-In this tutorial, we found a similar distribution of events across multiple decades of scale, in both earthquakes and paper crackling, despite both systems having vastly different physics.
-Do earthquakes and paper crackling belong to the same universality class?
-
 
 ## Part 2: Self-organizing forests :evergreen_tree::fire::evergreen_tree::fire::evergreen_tree::fire::evergreen_tree:
 
