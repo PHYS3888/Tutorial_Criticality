@@ -194,7 +194,7 @@ How do you explain the difference in crackles heard from these data compared to 
 Plot the distribution of event energies on log-log axes, as above (setting a minimum event size of `0.01`).
 
 :question::question::question:
-What distribution best fits the events in `crackleSimilarSize.mat`?
+Compared to the unconstrained crumpling above, what characterizes the event distribution in `crackleSimilarSize.mat`?
 
 ## Part 2: Self-organizing forests :evergreen_tree::fire::evergreen_tree::fire::evergreen_tree::fire::evergreen_tree:
 
