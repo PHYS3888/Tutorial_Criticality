@@ -252,11 +252,11 @@ Examine the model when it is shifted from the critical regime by changing the ra
 
 :question::question::question:
 Watch the model dynamics at a high lightning rate, `PL = 20`.
-Are there smaller fires or larger fires more likely in this regime?
+Are smaller fires or larger fires more likely in this regime?
 
 :question::question::question:
 Watch the model dynamics at a low lightning rate, `PL = 0.05`.
-Are there more smaller fires or larger fires in this regime?
+Are smaller fires or larger fires more likely in this regime?
 
 ---
 
