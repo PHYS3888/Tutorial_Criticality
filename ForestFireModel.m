@@ -5,22 +5,24 @@ function data = ForestFireModel(T,PG,PL,plotFF,analyzeFF,watchMore)
 %INPUTS:
 % The main adjustable parameters are
 %   1) 'T' - Number of generations simulation is ran for
-%   2) 'plotFF' - Flag to plot FFM
-%   3) 'analyzeFF' - Flag to save each timestep for an output vector data
-%   4) 'PG' - Scales the probability that a forest will grow in a cell
+%   2) 'PG' - Scales the probability that a forest will grow in a cell
 %       that is unoccupied.
-%   5) 'PL' - Scales the probability that a forest with no burning
+%   3) 'PL' - Scales the probability that a forest with no burning
 %       neighbors will ignite ('Lightning' rule; Drossel and Schwabl 1992)
-%   5) 'watchMore' - Flag to watch ratio of densities evolve through time
+%   4) 'plotFF' - Flag to plot FFM
+%   5) 'analyzeFF' - Flag to save each timestep for an output vector data
+%   6) 'watchMore' - Flag to watch ratio of densities evolve through time
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-%OUPUTS:
-%Output is the 3D array 'data' which shows the matrix for each time
-%step so code can be debugged, statistics can be calculated.
+% OUTPUTS:
+% Output is the 3D array 'data' which shows the matrix for each time
+% step so code can be debugged, statistics can be calculated.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%-------------------------------------------------------------------------------
 % Set defaults:
+%-------------------------------------------------------------------------------
 if nargin < 1
     T = 100;
 end
@@ -39,8 +41,10 @@ end
 if nargin < 6
     watchMore = false;
 end
+%-------------------------------------------------------------------------------
 
-close all
+close('all')
+
 %% Plot and analyse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,7 +61,7 @@ probGrow = probGrow*PG;
 %PARAMETER SET BY INPUT
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %Probabiliy that a lightning strike will ignite a tree
-probLight = probGrow/170; 
+probLight = probGrow/170;
 probLight = probLight*PL;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,29 +90,37 @@ x = floor(3.*rand(Dimensions,Dimensions));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if plotFF
     f = figure('color','w');
+    h = imagesc(x);
+    colormap([1,1,1;0,1,0;1,0,0])
+    cB = colorbar;
+    cB.Limits = [0 2];
+    cB.Ticks = [1/3,1,5/3];
+    cB.TickLabels = {'empty','trees','fire'};
+    caxis([0 2])
+    axis('square')
 end
-for t=1:T
+for t = 1:T
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Rule 2
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Rule 2
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Initialize an empty grid
     xi = x;
     x = zeros(Dimensions,Dimensions);
     % Here we want to set all burning trees to zero while saving all trees
     x(xi==1) = 1;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Rule 3
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% We want empty ground to grow trees with probability p
-    p=rand(Dimensions,Dimensions);
-    x(xi==0 & p<probGrow)=1;
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Rule 3
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % We want empty ground to grow trees with probability p
+    p = rand(Dimensions,Dimensions);
+    x(xi==0 & p<probGrow) = 1;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Rule 4
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Fire spreads to it's neighbouring trees in the next time step
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Rule 4
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Fire spreads to it's neighbouring trees in the next time step
 
     % First find all active trees
     [ii,jj] = find(xi==2);
@@ -134,45 +146,42 @@ for t=1:T
         end
     end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Rule 5
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% RULE 5 a tree becomes a burning tree with probability f if no neighbour is burning
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Rule 5
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % RULE 5 a tree becomes a burning tree with probability f if
+    % no neighbour is burning
     f = rand(Dimensions,Dimensions);
     x(xi==1 & f<probLight) = 2;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Statistics calculated for later
-%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% Statistics calculated for later
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Calculate how much land is occupied by fires, bare ground and forest
     Fires = sum(sum(x==2));
     Bare = sum(sum(x==0));
     Forest = sum(sum(x==1));
 
-    FRatio=100*Fires/(Dimensions*Dimensions);
-    BRatio=100*Bare/(Dimensions*Dimensions);
-    ForRatio=100*Forest/(Dimensions*Dimensions);
+    FRatio = 100*Fires/(Dimensions*Dimensions);
+    BRatio = 100*Bare/(Dimensions*Dimensions);
+    ForRatio = 100*Forest/(Dimensions*Dimensions);
+
     %%%%%%%%%%%%%%%%%%%%%
-    %save the computation domain
+    % Save the computation domain
     if analyzeFF
         data(:,:,t)=x;
     end
     %%%%%%%%%%%%%%%%%%%%%
 
     % If plotting:
-    if ~mod(t,10) && plotFF
+    if plotFF && ~mod(t,5)
         %PLOTS
         %Simulation
         if watchMore
-            subplot(3,1,1:2)
+            ax = subplot(3,1,1:2);
         end
-        imagesc(x)
-        colormap([1,1,1;0,1,0;1,0,0])
-        h = colorbar;
-        caxis([0 2])
+        h.CData = x;
         title(sprintf('t = %u, probGrow= %.2f, probLight= %.2f',t,PG,PL))
-        set(h,'YLim',[0 2],'YTick',0.5:0.5:1.5,'YTickLabel',{'empty','trees','fire'})
-        axis('square')
         drawnow('limitrate')
         % Percentage of land occupied by each state
         if watchMore
@@ -188,7 +197,7 @@ for t=1:T
         end
     end
 
-    %Exit loop if fires are extinguished
+    % Exit loop if fires are extinguished
     if probLight==0 && Fires==0
         Error('There are no more Fires!!!')
     end

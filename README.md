@@ -124,28 +124,19 @@ Use `histogram` to achieve this.
 What do you notice about this distribution?
 
 Now let's plot the same histogram on logarithmic horizontal and vertical axes.
-When plotting on log-log axes, it is good practice to use logarithmically spaced bins, which can be achieved as:
+When plotting on log-log axes, it is good practice to use logarithmically spaced bins, this is achieved in `binLogLog`:
 ```matlab
 numBins = 25;
-binEdges = logspace(log10(min(E)),log10(max(E)),numBins);
-[N,binEdges] = histcounts(E,binEdges);
+[binCenters,Nnorm] = binLogLog(numBins,E);
 ```
 
-We would like to represent each bin as its middle value, which we can do by taking the mean of each pair of consecutive bin edges.
-This code does the trick:
-
-```matlab
-binCenters = mean([binEdges(1:end-1);binEdges(2:end)]);
-```
-
-Plot the distribution determined by the counts, `N`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `o-k`).
+Plot the distribution determined by the probabilities, `Nnorm`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `o-k`).
 
 Give thought to the following:
 
 1. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
-2. You may wish to normalise the counts to probabilities: `Nnorm = N/sum(N)`.
-3. You may wish to filter out small events due to background noise, but setting a threshold on the minimum event energy to include in your analysis.
-You can do this by setting the `'minEnergy'` input to `energyCalc` to an appropriately (small) value.
+2. You may wish to filter out small events due to background noise, but setting a threshold on the minimum event energy to include in your analysis.
+You can do this by setting the `'minEventSize'` input to `energyCalc` to an appropriately (small) value, e.g., `1e-3`.
 
 Do you find evidence for a scale-free distribution of event energies from your `myCrumplingData`?
 
@@ -198,7 +189,8 @@ Compared to the unconstrained crumpling above, what characterizes the event dist
 
 ## Part 2: Self-organizing forests :evergreen_tree::fire::evergreen_tree::fire::evergreen_tree::fire::evergreen_tree:
 
-Despite the complexities in how forest fires propagate (different trees, landscapes, and temperature), forest burn areas exhibit scale invariant power-law statistics (there are many small fires and few large fires).
+Despite the complexities in how forest fires propagate (different trees, landscapes, and temperature), forest burn areas exhibit scale invariant power-law statistics.
+Loosely, there are many small fires and few large fires.
 
 ![](img/forestFireAmazon.png)
 
@@ -219,10 +211,12 @@ The system is then updated (in parallel) according to the following rules:
 
 We will examine this simple forest-fire model, demonstrating that it self-organizes to criticality and exhibits scale-invariant statistics.
 
-:fire::fire::crown::fire::fire: If you are up for the challenge and want to understand the mechanics of the model, follow the instructions in [`ImplementingForestFire.md`](ImplementingForestFire.md) and modify `forestFireModelEmpty.m` to build your own forest-fire model.
-
-:snowflake::snowflake::snowflake::snowflake: If you are running short on time, we have implemented the four rules for you in `forestFireModel`.
+We have implemented the four rules in `forestFireModel`.
 Have a look through it and make sure you understand how the four rules outlined above have been implemented.
+
+#### :fire::fire::crown::fire::fire: _(optional)_ For those who love a challenge
+If you are up for a challenge and want to understand the mechanics of the model, follow the instructions in [`ImplementingForestFire.md`](ImplementingForestFire.md) and modify `forestFireModelEmpty.m` to build your own forest-fire model.
+
 
 ### Critical conditions on parameters `f` and `p`
 
@@ -232,7 +226,7 @@ In this case, the burning of a cluster of trees can be thought of as instantaneo
 Thus, the conditions for forest-fire criticality are that `f`<<`p`<<1.
 Physically, these conditions can be interpreted as a separation of timescales: the time in which a forest cluster burns down (1) is much shorter than the time in which a tree grows (1/`p`), which is itself much shorter than the time between two lightning strikes (1/`f`).
 
-Considering the timescales on which these phenomena occur within nature, discuss within your group whether you believe that this is a valid condition for simulating natural forest fires?
+Considering the timescales on which these phenomena occur within nature, discuss within your group whether you believe that this condition is realistic in the context of natural forest fires.
 
 ### Simulating forest-fire dynamics
 In their original 1992 paper, Drossel and Schwabl simulated a grid-size of 250 x 250 over many hours.
@@ -241,7 +235,7 @@ Thankfully, computers are much faster now: we can comfortably model on a 300 x 3
 For our simulations, we will be using the `ForestFireModel` code provided (or written, for those of you who are on :fire:).
 
 ```matlab
-ForestFireModel(Tmax, PG, PL, plotFlag, outputFlag):
+X = ForestFireModel(Tmax, PG, PL, plotFlag, outputFlag);
 ```
 Inputs:
 * `Tmax`: the number of generations to be simulated.
@@ -254,46 +248,56 @@ Let’s visualize the model dynamics at the critical point (`PG = 1`, `PL = 1`).
 At the critical point, we expect to see a scale-free distribution of fire sizes.
 Run the model at the critical point for 1000 generations, with plotting enabled.
 
-Now examine the model when it is shifted from the critical regime by decreasing the lightning probability, `f` below the critical regime (`PL = 0.05`) and then increasing the lightning probability beyond the critical regime (`PL = 50`).
+Examine the model when it is shifted from the critical regime by changing the rate at which lightning events occur.
+
+:question::question::question:
+Watch the model dynamics at a high lightning rate, `PL = 20`.
+Are there smaller fires or larger fires more likely in this regime?
+
+:question::question::question:
+Watch the model dynamics at a low lightning rate, `PL = 0.05`.
+Are there more smaller fires or larger fires in this regime?
+
+---
 
 Remember how the creases in the paper crackling experiment occurred along spatially contiguous stretches of weak paper fibres, which are distributed as a power-law.
-Discuss how the topographic structure of the forests (clusters of trees) at the critical point (`PL = 1`) differs from that at `PL = 0.05` and `PL = 50`.
-Are they homogenous, heterogeneous, or something in between?
-(_Hint:_ Do we see any qualitative evidence of scale-invariance?)
+Amongst your group, discuss what the distribution of burn sizes (number of trees destroyed in each fire event) might look like at the critical point (`PL = 1`), relative to `PL = 0.05` and `PL = 20`.
+<!-- Are they homogenous, heterogeneous, or something in between? -->
+<!-- (_Hint:_ Do we see any qualitative evidence of scale-invariance?) -->
 
 ### Demonstrating criticality
+
 In this section, we will quantitatively analyze the forest-fire dynamics to demonstrate that the model reaches a critical point.
 
-First, let's extend the number of generations to 5000 (or more if time permitting) to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`).
-Second, let's process the results using the `fireArea` function, to compute the number of trees burned in each fire as `treeBurn`.
+First, let's extend the number of generations to 5000 (or more if time permitting, e.g., 20000) to build sufficient statistics, and save the output in the variable `data` (ensuring `outputFlag = true`).
+Second, let's process the results using the `fireArea` function, to compute the number of trees burned in each fire as `treeBurn`:
+```matlab
+treeBurn = fireArea(data);
+```
 
 #### Critical point `PL = 1`
+
 Setting `PL = 1`, plot the distribution of cluster sizes (in units of trees) on log-log axes.
 As with crackling noise, use logarithmically-spaced bins (setting a suitable number of bins and filtering out empty bins as appropriate).
-You may also wish to restrict the scale over which you perform your linear fit as some large outliers may have insufficient statistics due to the short simulation time.
 
 :question::question::question:
 What distribution best fits your event histogram?
 
+:fire::fire: _(optional)_
 The histogram of natural forest-fire sizes has a powerlaw exponent of -1.
-At the critical point, what is the powerlaw exponent of the distribution of forest-fire sizes in our model.
+At the critical point, what is the powerlaw exponent of the distribution of forest-fire sizes in our model?
+(You may wish to restrict the scale over which you perform your linear fit as some large outliers may have insufficient statistics due to the short simulation time)
 Does this super-simple model allow us to verify the empirical finding?
 
-#### Subcritical: `PL = 50`
+#### Subcritical: `PL = 20`
 
 :question::question::question:
-Are there more frequent smaller fires or larger fires?
-
-:question::question::question:
-What distribution best fits the forest-fire events?
+At `PL = 20`, what form best fits the distribution of forest-fire events?
 
 #### Supercritical: `PL = 0.05`
 
 :question::question::question:
-Are there more smaller fires or larger fires in this regime?
-
-:question::question::question:
-What form best fits the distribution of forest-fire events?
+At `PL = 0.05`, what form best fits the distribution of forest-fire events?
 
 ### Physics as National Park Policy :evergreen_tree::fire::fire_engine:
 
