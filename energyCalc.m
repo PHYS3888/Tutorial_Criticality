@@ -8,7 +8,6 @@ function E = energyCalc(y,fs,minEventSize)
 %---OUTPUT:
 %   'E' - Energy of each crackle
 %-------------------------------------------------------------------------------
-
 if nargin < 1
     error('Some audio data, please');
 end

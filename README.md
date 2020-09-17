@@ -130,12 +130,12 @@ numBins = 25;
 [binCenters,Nnorm] = binLogLog(numBins,E);
 ```
 
-Plot the distribution determined by the probabilities, `Nnorm`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `o-k`).
+Plot the distribution determined by the probabilities, `Nnorm`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `'o-k'`).
 
 Give thought to the following:
 
-1. Play with the number of bins, selecting a value that best captures the trade-off between spatial resolution of bins and noise of counts in individual bins.
-2. You may wish to filter out small events due to background noise, but setting a threshold on the minimum event energy to include in your analysis.
+1. Play with the number of bins, selecting a value that best captures the trade-off between sufficient resolution of bins (not too few bins) and noise of counts in individual bins (not too many bins).
+2. You may wish to filter out events smaller than a threshold corresponding to background noise, by setting a threshold on the minimum event energy to include in your analysis.
 You can do this by setting the `'minEventSize'` input to `energyCalc` to an appropriately (small) value, e.g., `1e-3`.
 
 Do you find evidence for a scale-free distribution of event energies from your `myCrumplingData`?
@@ -312,7 +312,7 @@ What regime does this correspond to in the model?
 :question::question::question:
 Should the council listen to the advice coming from UNSW?
 
-(_Hint:_ Research 'The Yellowstone Effect'.)
+(_Hint:_ Research ['The Yellowstone Effect'](https://en.wikipedia.org/wiki/Yellowstone_fires_of_1988).)
 
 :fire::fire::fire: (___Optional___):
 The council are impressed with your work and have asked you to expand your model to incorporate fire-fighters and random-arsonists.
