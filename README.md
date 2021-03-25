@@ -241,8 +241,8 @@ Inputs:
 * `Tmax`: the number of generations to be simulated.
 * `PG`: a multiplier of the critical growth rate.
 * `PL`: a multiplier of the critical lightning rate.
-* `plotFlag`: whether to plot the forest fire model (green = trees, white = empty ground, red = fire),
-* `outputFlag`: whether to output a 3d matrix (space, space, time).
+* `plotFlag`: (`true`/`false`) whether to plot the forest fire model (green = trees, white = empty ground, red = fire),
+* `outputFlag`: (`true`/`false`) whether to output a 3d matrix (space x space x time).
 
 Let’s visualize the model dynamics at the critical point (`PG = 1`, `PL = 1`).
 At the critical point, we expect to see a scale-free distribution of fire sizes.
