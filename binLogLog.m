@@ -1,4 +1,9 @@
 function [binCenters,Nnorm] = binLogLog(numBins,dataVector)
+% binLogLog produce a histogram of data with logarithmically spaced bins.
+% histogram counts are normalized to probabilities, Nnorm.
+
+%-------------------------------------------------------------------------------
+% Set default number of bins:
 if nargin < 1
     numBins = 25;
 end
