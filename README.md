@@ -5,9 +5,10 @@ _Acknowledgement_: This tutorial is based on material developed by [Brandon Munn
 ## Part 1: Snap, Crackle, and Pop
 
 Most systems snap, crackle, or pop when driven slowly by an external force.
-___Pops___ are lots of similarly sized discrete events, like popcorn popping as it is heated.
-___Snaps___ are single significant events, like a snapped pencil.
-Between these two limits, ___crackles___ are discrete events of a variety of sizes.
+
+- _Pops_ are lots of similarly sized discrete events, like popcorn popping as it is heated.
+- _Snaps_ are single significant events, like a snapped pencil.
+- Between these two limits, _crackles_ are discrete events of a variety of sizes.
 
 Many systems crackle, like the Earth responding with intermittent and variable earthquakes from the movement of the tectonic plates, magnetic domains aligning due to an applied magnetic field, and the sound of fire crackling.
 
@@ -23,7 +24,7 @@ Hold some paper to your ear (preferably not your lecture notes) and slowly move 
 
 While paper might appear to be a boring system, we will see that it actually resembles the same types of microscopic random spatial processes we've been studying in lectures, that give rise to characteristic scale-free statistics at the macroscopic scale.
 
-FYI, here is an example physics paper on the topic, titled ['Acoustic emission from crumpling paper'](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278).
+In case you're interested, here is a physics paper on the topic: ['Acoustic emission from crumpling paper'](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278) _Phys. Rev. E_ (1996).
 
 ### Why does paper crackle?
 
@@ -36,7 +37,7 @@ When you apply stress to the paper, it will preferentially form creases along co
 We've seen plenty of spatial models in lectures where these types of random microscopic processes yield scale-free macroscopic statistics.
 
 In fact, you may think of this process as an example of self-organized criticality.
-As the paper is bent, the system approaches criticality (this is a slow timescale driving process, like the accumulation of sand in a sand pile).
+As the paper is bent (a slow timescale driving process, like the accumulation of sand in a sand pile), the system approaches criticality.
 When it cracks, it quickly dissipates energy (like the redistributive toppling in a sand pile).
 Thus, crackling events are the fast dissipation of energy applied to the system.
 
@@ -104,7 +105,7 @@ The wide range of length scales is related to scale-invariant crackles measured 
 If the amplitude of crackles is proportional to the crease length of the buckled paper, how would you expect your crackling amplitudes to change over time?
 Do you see this in your time plot?
 
-___Bring these two files: `myVoiceData.mat` and `myCrumplingData.mat` with you to the computer lab.___
+:star::star::star: Bring these two files, `myVoiceData.mat` and `myCrumplingData.mat`, with you to the computer lab.
 
 ---
 
@@ -209,9 +210,9 @@ We played with a [simple, interactive forest-fire model](https://www.complexity-
 
 ![Forest-fire simulation](img/explorableForestFire.png)
 
-One of the originators of the idea of self-organized criticality, Per Bak, developed a forest-fire model defined on a 2-dimensional spatial grid.
+One of the originators of the idea of self-organized criticality, Per Bak, developed a forest-fire model defined on a two-dimensional spatial grid.
 
-Initially, each site is randomly assigned to be a tree, a burning tree, or empty.
+Initially, each site is randomly assigned to be a tree (:green_square:), a burning tree (:red_square:), or empty (:black_large_square:).
 The system is then updated (in parallel) according to the following rules:
 
 1. _Death_: A burning tree becomes an empty site in the next time-step;
@@ -221,7 +222,7 @@ The system is then updated (in parallel) according to the following rules:
 
 We will examine this simple forest-fire model, demonstrating that it self-organizes to criticality and exhibits scale-invariant statistics.
 
-We have implemented the four rules in `forestFireModel`.
+We have implemented the four rules in the function `forestFireModel`.
 Have a look through it and make sure you understand how the four rules outlined above have been implemented.
 
 #### :fire::fire::crown::fire::fire: _(optional)_ For those who love a challenge
@@ -290,7 +291,7 @@ Second, let's process the results using the `fireArea` function, to compute the 
 treeBurn = fireArea(data);
 ```
 
-#### Critical point `PL = 1`
+#### Critical point, `PL = 1`
 
 Setting `PL = 1`, plot the distribution of cluster sizes (in units of trees) on log-log axes.
 As with crackling noise, use logarithmically-spaced bins (setting a suitable number of bins and filtering out empty bins as appropriate).
@@ -299,8 +300,8 @@ As with crackling noise, use logarithmically-spaced bins (setting a suitable num
 What distribution best fits your event histogram?
 
 :fire::fire: _(optional)_
-The histogram of natural forest-fire sizes has a powerlaw exponent of -1.
-At the critical point, what is the powerlaw exponent of the distribution of forest-fire sizes in our model?
+The histogram of natural forest-fire sizes has a power-law exponent of -1.
+At the critical point, what is the power-law exponent of the distribution of forest-fire sizes in our model?
 (You may wish to restrict the scale over which you perform your linear fit as some large outliers may have insufficient statistics due to the short simulation time)
 Does this super-simple model allow us to verify the empirical finding?
 
@@ -330,20 +331,14 @@ Should the council listen to the advice coming from UNSW?
 (_Hint:_ Research ['The Yellowstone Effect'](https://en.wikipedia.org/wiki/Yellowstone_fires_of_1988).)
 
 :fire::fire::fire: (___Optional___):
-The council are impressed with your work and have asked you to expand your model to incorporate fire-fighters and random-arsonists.
+The council are impressed with your work and have asked you to expand your model to incorporate fire fighters and random arsonists.
 Implement these two new features into the model, and discuss the effect they have on forest-fire statistics.
 
 ---
 
 ## References
 
-- Bak, Chen, and Tang, [A forest-fire model and some thoughts on turbulence](https://www.sciencedirect.com/science/article/pii/037596019090451S), _Physics Letters A_, **147**, 297-300 (1990).
-- Drossel, B. and Schwabl, F. (1992),
-[Self-organized critical forest-fire model](https://doi.org/10.1103/PhysRevLett.69.1629).
-_Phys. Rev. Lett._ __69__, 1629–1632.
-- Grassberger, P. (2002),
-[Critical behaviour of the Drossel-Schwabl forest fire model](http://iopscience.iop.org/article/10.1088/1367-2630/4/1/317/meta).
-_New J. Phys._ __4__, 17.
-- Houle and Sethna (1996).
-[Acoustic emission from crumpling paper](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278).
-_Phys. Rev. E_
+- Bak, Chen, and Tang (1990), [A forest-fire model and some thoughts on turbulence](https://www.sciencedirect.com/science/article/pii/037596019090451S), _Physics Letters A_, **147**, 297-300.
+- Drossel, B. and Schwabl, F. (1992), [Self-organized critical forest-fire model](https://doi.org/10.1103/PhysRevLett.69.1629). _Phys. Rev. Lett._ __69__, 1629–1632.
+- Grassberger, P. (2002), [Critical behaviour of the Drossel-Schwabl forest fire model](http://iopscience.iop.org/article/10.1088/1367-2630/4/1/317/meta). _New J. Phys._ __4__, 17.
+- Houle and Sethna (1996). [Acoustic emission from crumpling paper](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278). _Phys. Rev. E_ __54__, 278.

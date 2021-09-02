@@ -1,17 +1,17 @@
 function data = ForestFireModel(T,PG,PL,plotFF,analyzeFF,watchMore)
-% FOREST-FIRE MODEL
+% ForestFireModel Simulates a forest fire model
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-%INPUTS:
+% INPUTS:
 % The main adjustable parameters are
 %   1) 'T' - Number of generations simulation is ran for
 %   2) 'PG' - Scales the probability that a forest will grow in a cell
 %       that is unoccupied.
 %   3) 'PL' - Scales the probability that a forest with no burning
-%       neighbors will ignite ('Lightning' rule; Drossel and Schwabl 1992)
-%   4) 'plotFF' - Flag to plot FFM
-%   5) 'analyzeFF' - Flag to save each timestep for an output vector data
-%   6) 'watchMore' - Flag to watch ratio of densities evolve through time
+%       neighbors will ignite (the 'lightning rule' of Drossel and Schwabl 1992)
+%   4) 'plotFF' - Flag true to plot FFM
+%   5) 'analyzeFF' - Flag true to save each timestep for an output vector data
+%   6) 'watchMore' - Flag true to watch ratio of densities evolve through time
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OUTPUTS:
@@ -99,8 +99,8 @@ if plotFF
     caxis([0 2])
     axis('square')
 end
-for t = 1:T
 
+for t = 1:T
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Rule 2
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -115,7 +115,7 @@ for t = 1:T
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % We want empty ground to grow trees with probability p
     p = rand(Dimensions,Dimensions);
-    x(xi==0 & p<probGrow) = 1;
+    x((xi == 0) & (p < probGrow)) = 1;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Rule 4
@@ -126,7 +126,7 @@ for t = 1:T
     [ii,jj] = find(xi==2);
 
     %Loop through each tree
-    for m=1:numel(ii)
+    for m = 1:numel(ii)
 
         if ~ismember([ii(m); jj(m)],[1 Dimensions])
 
@@ -152,7 +152,7 @@ for t = 1:T
     % RULE 5 a tree becomes a burning tree with probability f if
     % no neighbour is burning
     f = rand(Dimensions,Dimensions);
-    x(xi==1 & f<probLight) = 2;
+    x(xi == 1 & f < probLight) = 2;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%% Statistics calculated for later
@@ -199,7 +199,7 @@ for t = 1:T
 
     % Exit loop if fires are extinguished
     if probLight==0 && Fires==0
-        Error('There are no more Fires!!!')
+        Error('There are no more fires!!!')
     end
 end
 
