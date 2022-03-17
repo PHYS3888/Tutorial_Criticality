@@ -47,6 +47,8 @@ In this tutorial, we will (hopefully!) find that they form a scale-free distribu
 
 ![Scale-free distribution of paper crumpling events](img/paper_scaleFree.png)
 
+__NB:__ This tutorial requires you to have installed two Matlab toolboxes: the _Image Processing Toolbox_, and the _Signal Processing Toolbox_.
+
 ---
 
 ## _PREWORK_: Measure crumpling events as audio
