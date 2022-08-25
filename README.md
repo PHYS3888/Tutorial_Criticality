@@ -139,7 +139,8 @@ numBins = 25;
 [binCenters,Nnorm] = binLogLog(numBins,E);
 ```
 
-Plot the distribution determined by the probabilities, `Nnorm`, on a log-log plot (making sure each bin is clearly marked, e.g., plot each data point with a circle and connect consecutive points using `'o-k'`).
+Plot the distribution determined by the probabilities, `Nnorm`, on a log-log plot using `loglog`.
+Make sure each bin is clearly marked, e.g., by plotting each data point with a circle and connecting consecutive points using `'o-k'`.
 
 Give thought to the following:
 
