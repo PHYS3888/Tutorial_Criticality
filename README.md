@@ -268,17 +268,17 @@ Run the model at the critical point for 1000 generations, with plotting enabled.
 Examine the model when it is shifted from the critical regime by changing the rate at which lightning events occur.
 
 :question::question::question:
-Watch the model dynamics at a high lightning rate, `PL = 20`.
+Watch the model dynamics at a high lightning rate, `PL = 50`.
 Are smaller fires or larger fires more likely in this regime?
 
 :question::question::question:
-Watch the model dynamics at a low lightning rate, `PL = 0.05`.
+Watch the model dynamics at a low lightning rate, `PL = 0.02`.
 Are smaller fires or larger fires more likely in this regime?
 
 ---
 
 Remember how the creases in the paper crackling experiment occurred along spatially contiguous stretches of weak paper fibres, which are distributed as a power-law.
-Amongst your group, discuss what the distribution of burn sizes (number of trees destroyed in each fire event) might look like at the critical point (`PL = 1`), relative to `PL = 0.05` and `PL = 20`.
+Amongst your group, discuss what the distribution of burn sizes (number of trees destroyed in each fire event) might look like at the critical point (`PL = 1`), relative to `PL = 0.02` and `PL = 50`.
 
 <!-- Are they homogenous, heterogeneous, or something in between? -->
 <!-- (_Hint:_ Do we see any qualitative evidence of scale-invariance?) -->
@@ -308,15 +308,15 @@ At the critical point, what is the power-law exponent of the distribution of for
 (You may wish to restrict the scale over which you perform your linear fit as some large outliers may have insufficient statistics due to the short simulation time)
 Does this super-simple model allow us to verify the empirical finding?
 
-#### Subcritical: `PL = 20`
+#### Subcritical: `PL = 50`
 
 :question::question::question:
-At `PL = 20`, what form best fits the distribution of forest-fire events?
+At `PL = 50`, what form best fits the distribution of forest-fire events?
 
-#### Supercritical: `PL = 0.05`
+#### Supercritical: `PL = 0.02`
 
 :question::question::question:
-At `PL = 0.05`, what form best fits the distribution of forest-fire events?
+At `PL = 0.02`, what form best fits the distribution of forest-fire events?
 
 ### Physics as National Park Policy :evergreen_tree::fire::fire_engine:
 
