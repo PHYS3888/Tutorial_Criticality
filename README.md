@@ -321,7 +321,7 @@ At `PL = 0.02`, what form best fits the distribution of forest-fire events?
 ### Physics as National Park Policy :evergreen_tree::fire::fire_engine:
 
 Now that you are a world-leading expert on the dynamics of forest-fires, the Blue Mountains City Council has approached you and wants to know how to minimise large-scale fires.
-Your colleague from UNSW suggests that the council should recruit more local fire-fighters during the bush-fire season to ensure that more small fires are extinguished quickly.
+Your colleague from UNSW suggests that the council should recruit more local fire-fighters during the bush fire season to ensure that more small fires are extinguished quickly.
 
 :question::question::question:
 Does extinguishing small spot fires correspond to an increased or decreased `PL` in our model?
