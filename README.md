@@ -24,7 +24,7 @@ Hold some paper to your ear (preferably not your lecture notes) and slowly move 
 
 While paper might appear to be a boring system, we will see that it actually resembles the same types of microscopic random spatial processes we've been studying in lectures, that give rise to characteristic scale-free statistics at the macroscopic scale.
 
-In case you're interested, here is a physics paper on the topic: ['Acoustic emission from crumpling paper'](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278) _Phys. Rev. E_ (1996).
+In case you're interested, here is a physics paper on the topic: ['Acoustic emission from crumpling paper'](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.278) _Phys. Rev. E_ (1996), and a recent paper relating the idea to more general disordered systems: [One crumple at a time](https://www.nature.com/articles/s41567-023-02232-y) _Nature Physics_ (2023).
 
 ### Why does paper crackle?
 
